@@ -16,6 +16,8 @@ namespace GroupPhaseAssessment.Competition
 
     public class CompetitionManager
     {
+        //The competitionManager only holds a list of the teams (ordered by leaderboard position), as well as the IRuleSet.
+        //This allows the competitionmanager to also run for other rulesets.
         List<ICompetitionParticipant> participants;
         IRuleSet ruleSet;
 
@@ -67,6 +69,7 @@ namespace GroupPhaseAssessment.Competition
 
         public List<string[]> GetParticipantDataForView()
         {
+            //For the rendering
             return ruleSet.GetParticipantDataForView(participants);
         }
     }

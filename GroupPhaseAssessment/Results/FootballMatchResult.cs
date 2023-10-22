@@ -35,6 +35,11 @@ namespace GroupPhaseAssessment.Results
             return team1;
         }
 
+        public ICompetitionParticipant GetParticipant2()
+        {
+            return team2;
+        }
+
         public int GetGoalsForParticipant(ICompetitionParticipant participant)
         {
             if (team1 == participant)
@@ -51,10 +56,6 @@ namespace GroupPhaseAssessment.Results
                 return homeGoals;
         }
 
-        public ICompetitionParticipant GetParticipant2()
-        {
-            return team2;
-        }
 
         public TeamResult GetResultForParticipant(ICompetitionParticipant participant)
         {

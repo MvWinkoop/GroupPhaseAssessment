@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace GroupPhaseAssessment.RuleSets
 {
+    //The class that holds almost all the logic for the poule system
     public class FootballRuleSet : IRuleSet
     {
-        public CompetitionStyle CompetitionStyle { get { return CompetitionStyle.SingleRoundRobin; } }
+        public CompetitionStyle CompetitionStyle { get { return CompetitionStyle.SingleRoundRobin; } } //I didn't do an implementation for a double round robin
         public int AmountOfParticipants { get { return 4; } }
         public int PointsOnLoss { get { return 0; } }
         public int PointsOnDraw { get { return 1; } }
         public int PointsOnWin { get { return 3; } }
+
         FootballResultSimulator simulator;
 
         public FootballRuleSet()
@@ -28,8 +30,11 @@ namespace GroupPhaseAssessment.RuleSets
             return simulator;
         }
 
-        public int AmountOfRounds { get { return AmountOfParticipants - 1; } }
+        public int AmountOfRounds { get { return AmountOfParticipants - 1; } } // 4 participants means 3 rounds, 10 participants means 9 rounds etc.
 
+        //The trick in the sorting is that first, we take an empty list, and add the teams to it that would have the same position in the standings.
+        //Then, we sort these out, add them to the empty list, and then add all the entries that weren't in the list yet, and sort that.
+        //Because the original order is maintained when calling a sort where there are unresolved issues, the order that exists after sorting is the correct one.
         public List<ICompetitionParticipant> SortCompetitionParticipants(List<ICompetitionParticipant> participants, bool HeadToHeadWasSorted = false)
         {
             if (!HeadToHeadWasSorted) {
@@ -57,7 +62,7 @@ namespace GroupPhaseAssessment.RuleSets
                     .Union(participants)
                     .ToList();
             }
-            //First, we sort by game points, then by amount of games played (in case the group has an odd number of teams.
+            //Then, we sort by game points, then by amount of games played (in case the group has an odd number of teams).
             //Then goal difference, then goals made. Goals conceded can be ignored, since that would be the same as well.
             participants = participants.AsQueryable()
                 .OrderByDescending(team => team.AmountOfGamePoints)
@@ -99,6 +104,7 @@ namespace GroupPhaseAssessment.RuleSets
 
         public List<ICompetitionParticipant> GenerateParticipants()
         {
+            //I picked this poule because I have very fond memories of this tournament. Except for Arshavin.
             List<ICompetitionParticipant> participants = new List<ICompetitionParticipant>();
             FootballTeam Nederland = new FootballTeam("Nederland", this);
             Nederland.SetTeamStrengths(75, 82, 82, 83);
@@ -117,12 +123,6 @@ namespace GroupPhaseAssessment.RuleSets
             participants.Add(Roemenië);
             return participants;
 
-        }
-
-        ICompetitionParticipant GenerateParticipant()
-        {
-            FootballTeam team = new FootballTeam("test", this);
-            return team;
         }
 
         public List<IMatchup> GenerateSingleRoundMatchups(List<ICompetitionParticipant> participants)
@@ -145,7 +145,7 @@ namespace GroupPhaseAssessment.RuleSets
 
             while (unmatchedTeams.Count > 0) {
                 int i = 1;
-
+                //Simply find the first team that you haven't played yet.
                 while (unmatchedTeams[0].HasPlayedAgainst(unmatchedTeams[i])) {
                     i++;
                 }
