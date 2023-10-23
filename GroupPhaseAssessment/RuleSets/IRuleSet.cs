@@ -26,6 +26,5 @@ namespace GroupPhaseAssessment.RuleSets
         List<IMatchup> GenerateSingleRoundMatchups(List<ICompetitionParticipant> participants);
         IResultSimulator GetSimulator();
         List<ICompetitionParticipant> GenerateParticipants();
-        List<string[]> GetParticipantDataForView(List<ICompetitionParticipant> participants);
     }
 }

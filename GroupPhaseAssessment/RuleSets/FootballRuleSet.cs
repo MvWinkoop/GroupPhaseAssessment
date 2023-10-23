@@ -157,19 +157,5 @@ namespace GroupPhaseAssessment.RuleSets
 
             return matches;
         }
-
-        public List<string[]> GetParticipantDataForView(List<ICompetitionParticipant> participants)
-        {
-            List<FootballTeam> teams = participants.Cast<FootballTeam>().ToList();
-            List<string[]> res = new List<string[]>();
-
-            foreach (var team in teams) {
-                res.Add(new string[] {team.ParticipantName, team.AmountOfGamesPlayed.ToString(), team.AmountOfWins.ToString(),
-                                        team.AmountOfDraws.ToString(), team.AmountOfLosses.ToString(), team.AmountOfGoalsMade.ToString(),
-                                        team.AmountOfGoalsConceded.ToString(), team.GetGoalDifference.ToString(), team.AmountOfGamePoints.ToString()});
-            }
-
-            return res;
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GroupPhaseAssessment.Results;
 using GroupPhaseAssessment.RuleSets;
+using GroupPhaseAssessment.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,22 @@ namespace GroupPhaseAssessment.Competition
         public void AddResult(IMatchup result)
         {
             matchupResults.Add(result);
+        }
+
+        public ParticipantViewData GenerateViewData()
+        {
+            ParticipantViewData viewData = new ParticipantViewData();
+            viewData.AddProperty("ParticipantName", teamName);
+            viewData.AddProperty("GamesPlayed", AmountOfGamesPlayed.ToString());
+            viewData.AddProperty("Wins", AmountOfWins.ToString());
+            viewData.AddProperty("Draws", AmountOfDraws.ToString());
+            viewData.AddProperty("Losses", AmountOfLosses.ToString());
+            viewData.AddProperty("GoalsMade", AmountOfGoalsMade.ToString());
+            viewData.AddProperty("GoalsConceded", AmountOfGoalsConceded.ToString());
+            viewData.AddProperty("GoalDifference", GetGoalDifference.ToString());
+            viewData.AddProperty("GamePoints", AmountOfGamePoints.ToString());
+
+            return viewData;
         }
     }
 }

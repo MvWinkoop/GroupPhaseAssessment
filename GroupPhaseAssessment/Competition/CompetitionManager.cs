@@ -1,5 +1,6 @@
 ﻿using GroupPhaseAssessment.Results;
 using GroupPhaseAssessment.RuleSets;
+using GroupPhaseAssessment.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace GroupPhaseAssessment.Competition
             }
 
             participants = new List<ICompetitionParticipant>();
+            PrepareCompetition();
         }
 
         void RunSingleRound()
@@ -49,7 +51,6 @@ namespace GroupPhaseAssessment.Competition
 
         public void RunFullCompetition()
         {
-            PrepareCompetition();
             int amountOfRounds = ruleSet.AmountOfRounds;
 
             for (var i = 0; i < amountOfRounds; i++) {
@@ -57,7 +58,7 @@ namespace GroupPhaseAssessment.Competition
             }
         }
 
-        void PrepareCompetition()
+        public void PrepareCompetition()
         {
             participants = ruleSet.GenerateParticipants();
 
@@ -68,10 +69,15 @@ namespace GroupPhaseAssessment.Competition
             return participants;
         }
 
-        public List<string[]> GetParticipantDataForView()
+        public List<ParticipantViewData> GetParticipantDataForView()
         {
-            //For the rendering
-            return ruleSet.GetParticipantDataForView(participants);
+            List<ParticipantViewData> viewData = new List<ParticipantViewData>();
+
+            foreach (var participant in participants)
+            {
+                viewData.Add(participant.GenerateViewData());
+            }
+            return viewData;
         }
     }
 }

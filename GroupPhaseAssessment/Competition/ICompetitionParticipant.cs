@@ -1,4 +1,5 @@
 ﻿using GroupPhaseAssessment.Results;
+using GroupPhaseAssessment.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace GroupPhaseAssessment.Competition
         List<IMatchup> GetMatchupResults();
         void AddResult(IMatchup result);
         bool HasPlayedAgainst(ICompetitionParticipant opponent);
+        ParticipantViewData GenerateViewData();
     }
 }
