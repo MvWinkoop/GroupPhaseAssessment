@@ -17,9 +17,10 @@ I didn't implement this either, unfortunately - time restraints. Furthermore, th
 
 I took the liberty of implementing a (very bare-bones) simulator, which determines how many attempts at a goal a team gets in the match, and how many goals they make. I took the scores of the hardcoded teams from FIFA.
 
-I thought about testability of the solution for a while, and while I didn't implement any real tests yet, this also shouldn't be that difficult. Any kind of team or matchup could be created in the test solution that's included (but almost empty), which should make the solution properly testable.
+I thought about testability of the solution for a while, and while I didn't implement any real tests yet, this also shouldn't be that difficult. Any kind of team or matchup could be created in the test solution that's included (but almost empty), which should make the solution properly testable. 
+Proper unit tests are on the top of my list of things i'd implement if I were to put more time into the project, I just didn't get to it.
 
-I'm fully aware the form that the teams are displayed on is very bare-bones as well, but it functions. Click the button to see the results.
+I'm fully aware the form that the teams are displayed on is very bare-bones as well, but it functions. Click the button to see the results, and every press simulates the group again. 
 
 I hope the solution properly reflects my strengths at writing code, and I'd love to receive any feedback on it!
 
