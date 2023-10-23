@@ -25,9 +25,10 @@ namespace GroupPhaseAssessment.Competition
         {
             switch (style) {
                 case CompetitionStyle.Football:
-                default:
                     ruleSet = new FootballRuleSet();
                     break;
+                default:
+                    throw new NotImplementedException();// No other systems have been implemented yet.
             }
 
             participants = new List<ICompetitionParticipant>();

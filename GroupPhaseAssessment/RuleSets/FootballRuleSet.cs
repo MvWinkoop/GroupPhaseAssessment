@@ -30,7 +30,7 @@ namespace GroupPhaseAssessment.RuleSets
             return simulator;
         }
 
-        public int AmountOfRounds { get { return AmountOfParticipants - 1; } } // 4 participants means 3 rounds, 10 participants means 9 rounds etc.
+        public int AmountOfRounds { get { return AmountOfParticipants % 2 == 0 ? AmountOfParticipants - 1 : AmountOfParticipants; } } // 4 participants means 3 rounds, 10 participants means 9 rounds etc. An odd number of participants means the same amount of rounds as participants.
 
         //The trick in the sorting is that first, we take an empty list, and add the teams to it that would have the same position in the standings.
         //Then, we sort these out, add them to the empty list, and then add all the entries that weren't in the list yet, and sort that.

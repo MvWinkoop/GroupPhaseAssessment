@@ -12,14 +12,11 @@ namespace GroupPhaseAssessment.Results
     internal class FootballMatchResult : IMatchup
     {
         FootballTeam team1, team2;
-        bool hasBeenPlayed;
-        public bool HasBeenPlayed { get { return hasBeenPlayed; } }
+        public bool HasBeenPlayed { get; private set; }
 
-        int homeGoals; // home = team1
-        int awayGoals; // away = team2
 
-        public int HomeGoals { get { return homeGoals; } }
-        public int AwayGoals { get { return awayGoals; } }
+        public int HomeGoals { get; private set; }//home = team1
+        public int AwayGoals { get; private set; }//away = team2
 
         FootballRuleSet ruleSet;
 
@@ -28,7 +25,7 @@ namespace GroupPhaseAssessment.Results
             this.team1 = team1;
             this.team2 = team2;
             this.ruleSet = ruleSet;
-            hasBeenPlayed = false;
+            HasBeenPlayed = false;
         }
         public ICompetitionParticipant GetParticipant1()
         {
@@ -43,33 +40,33 @@ namespace GroupPhaseAssessment.Results
         public int GetGoalsForParticipant(ICompetitionParticipant participant)
         {
             if (team1 == participant)
-                return homeGoals;
+                return HomeGoals;
             else
-                return awayGoals;
+                return AwayGoals;
         }
 
         public int GetGoalsForOpponent(ICompetitionParticipant participant)
         {
             if (team1 == participant)
-                return awayGoals;
+                return AwayGoals;
             else
-                return homeGoals;
+                return HomeGoals;
         }
 
 
         public TeamResult GetResultForParticipant(ICompetitionParticipant participant)
         {
             if (participant == team1) {
-                if (homeGoals > awayGoals)
+                if (HomeGoals > AwayGoals)
                     return TeamResult.Win;
-                else if (awayGoals > homeGoals)
+                else if (AwayGoals > HomeGoals)
                     return TeamResult.Loss;
                 else
                     return TeamResult.Draw;
             } else if (participant == team2) {
-                if (homeGoals > awayGoals)
+                if (HomeGoals > AwayGoals)
                     return TeamResult.Loss;
-                else if (awayGoals > homeGoals)
+                else if (AwayGoals > HomeGoals)
                     return TeamResult.Win;
                 else
                     return TeamResult.Draw;
@@ -81,7 +78,7 @@ namespace GroupPhaseAssessment.Results
         {
             resultSimulator.SimulateGame(this);
 
-            hasBeenPlayed = true;
+            HasBeenPlayed = true;
             AddResultToTeams();
         }
 
@@ -93,12 +90,12 @@ namespace GroupPhaseAssessment.Results
 
         public void AddHomeGoal()
         {
-            homeGoals++;
+            HomeGoals++;
         }
 
         public void AddAwayGoal()
         {
-            awayGoals++;
+            AwayGoals++;
         }
     }
 }

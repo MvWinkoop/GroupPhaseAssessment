@@ -21,10 +21,10 @@ namespace GroupPhaseAssessment.Simulator
             //First, we start for the home team. We Simulate how many attempts on goal they get, using the average of the Eredivisie, set in FootballAssumptions
 
             //In order to determine how many attempts a team gets, we calculate their offensive strength:
-            double homeOffensiveStrength = homeTeam.GetOffenseStrength + 0.5 * homeTeam.GetMidfieldStrength;
+            double homeOffensiveStrength = homeTeam.OffenseStrength + 0.5 * homeTeam.MidfieldStrength;
 
             //And the away team's defensive strength:
-            double awayDefensiveStrength = awayTeam.GetDefenseStrength + 0.5 * awayTeam.GetMidfieldStrength;
+            double awayDefensiveStrength = awayTeam.DefenseStrength + 0.5 * awayTeam.MidfieldStrength;
 
             //if these strengths are equal, we want the amount of attempts from FootballAssumptions. However, if there's a difference, the amount of attempts of course changes.
             //A lot of interesting calculations could be made here, but I'm just gonna take it linearly, since this is not the focus of the assessment.
@@ -34,7 +34,7 @@ namespace GroupPhaseAssessment.Simulator
                 * FootballAssumptions.AverageAttemptsPerMatch / 2 * FootballAssumptions.HomeAdvantageMultiplier);
 
             //Now we make those attempts by simply checking the offensive stat of a teams strikers vs the opponent's goalkeeper:
-            double homeHitChance = 100 * homeTeam.GetOffenseStrength / awayTeam.GetGoalKeeperStrength * FootballAssumptions.AverageGoalsPerMatch / FootballAssumptions.AverageAttemptsPerMatch;
+            double homeHitChance = 100 * homeTeam.OffenseStrength / awayTeam.GoalKeeperStrength * FootballAssumptions.AverageGoalsPerMatch / FootballAssumptions.AverageAttemptsPerMatch;
 
             // And we make these attempts!
             for (int i = 0; i < homeAttempts; i++) {
@@ -45,14 +45,14 @@ namespace GroupPhaseAssessment.Simulator
             }
 
             //Now, also for the away team.
-            double awayOffensiveStrength = awayTeam.GetOffenseStrength + 0.5 * awayTeam.GetMidfieldStrength;
-            double homeDefensiveStrength = homeTeam.GetDefenseStrength + 0.5 * homeTeam.GetMidfieldStrength;
+            double awayOffensiveStrength = awayTeam.OffenseStrength + 0.5 * awayTeam.MidfieldStrength;
+            double homeDefensiveStrength = homeTeam.DefenseStrength + 0.5 * homeTeam.MidfieldStrength;
 
             int awayAttempts =
                 (int)Math.Round(awayOffensiveStrength / homeDefensiveStrength
                 * FootballAssumptions.AverageAttemptsPerMatch / 2 / FootballAssumptions.HomeAdvantageMultiplier);
 
-            double awayHitChance = 100 * awayTeam.GetOffenseStrength / homeTeam.GetGoalKeeperStrength * FootballAssumptions.AverageGoalsPerMatch / FootballAssumptions.AverageAttemptsPerMatch;
+            double awayHitChance = 100 * awayTeam.OffenseStrength / homeTeam.GoalKeeperStrength * FootballAssumptions.AverageGoalsPerMatch / FootballAssumptions.AverageAttemptsPerMatch;
 
             for (int i = 0; i < awayAttempts; i++) {
                 if (generator.Next(100) < awayHitChance) {

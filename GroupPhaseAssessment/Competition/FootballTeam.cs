@@ -10,15 +10,13 @@ namespace GroupPhaseAssessment.Competition
 {
     public class FootballTeam : ICompetitionParticipant
     {
-        int amountOfByes;
         List<IMatchup> matchupResults;
         string teamName;
         IRuleSet ruleSet;
-        int goalKeeperStrength, defenseStrength, midfieldStrength, offenseStrength;
 
         //A bye is a term from swiss systems: It simply means that you skip a round because there are an odd amount of participants.
-        public int AmountOfByes { get { return amountOfByes; } }
-        public string ParticipantName { get { return teamName; } }
+        public int AmountOfByes { get; private set; }
+        public string ParticipantName { get; private set; }
         public int AmountOfGamesPlayed { get { return matchupResults.Count; } }
         public int AmountOfGamePoints { get { return AmountOfWins * ruleSet.PointsOnWin + AmountOfDraws * ruleSet.PointsOnDraw + AmountOfLosses * ruleSet.PointsOnLoss; } }
 
@@ -29,17 +27,17 @@ namespace GroupPhaseAssessment.Competition
         public int AmountOfGoalsMade { get { return matchupResults.Sum(x => (x as FootballMatchResult).GetGoalsForParticipant(this)); } }
         public int AmountOfGoalsConceded { get { return matchupResults.Sum(x => (x as FootballMatchResult).GetGoalsForOpponent(this)); } }
         public int GetGoalDifference { get { return AmountOfGoalsMade - AmountOfGoalsConceded; } }
-        public int GetGoalKeeperStrength { get { return goalKeeperStrength; } }
+        public int GoalKeeperStrength { get; private set; }
 
 
-        public int GetDefenseStrength { get { return defenseStrength; } }
-        public int GetMidfieldStrength { get { return midfieldStrength; } }
-        public int GetOffenseStrength { get { return offenseStrength; } }
+        public int DefenseStrength { get; private set; }
+        public int MidfieldStrength { get; private set; }
+        public int OffenseStrength { get; private set; }
 
         public FootballTeam(string teamName, IRuleSet ruleSet)
         {
-            amountOfByes = 0;
             matchupResults = new List<IMatchup>();
+            ParticipantName = teamName;
 
             this.teamName = teamName;
             this.ruleSet = ruleSet;
@@ -48,10 +46,10 @@ namespace GroupPhaseAssessment.Competition
         //These strengths are all relative, and one could use the FIFA system for it.
         public void SetTeamStrengths(int goalkeeper, int defense, int midfield, int offense)
         {
-            goalKeeperStrength = goalkeeper;
-            defenseStrength = defense;
-            midfieldStrength = midfield;
-            offenseStrength = offense;
+            GoalKeeperStrength = goalkeeper;
+            DefenseStrength = defense;
+            MidfieldStrength = midfield;
+            OffenseStrength = offense;
         }
 
         public List<IMatchup> GetMatchupResults()
@@ -66,7 +64,7 @@ namespace GroupPhaseAssessment.Competition
 
         public void AddBye()
         {
-            amountOfByes++;
+            AmountOfByes++;
         }
 
         public void AddResult(IMatchup result)
